@@ -1,9 +1,14 @@
-// EXERCÍCIO 3: CALCULAR VALOR TOTAL DO ESTOQUE
+// EXERCÍCIO 4: APLICAR DESCONTO
 
-function valorTotalEstoque(lista) {
-  return lista.reduce((total, produto) => {
-    return total + (produto.preco * produto.estoque);
-  }, 0);
+function aplicarDescontos(lista) {
+  return lista.map(produto => {
+    const precoFinal = produto.preco - (produto.preco * produto.desconto / 100);
+
+    return {
+      ...produto,          // copia todas as propriedades
+      precoFinal: precoFinal // adiciona o preço final
+    };
+  });
 }
 
 const produtos = [
@@ -20,7 +25,12 @@ const produtos = [
 ];
 
 // Testes:
-console.log("\n=== EXERCÍCIO 3 ===");
-const total = valorTotalEstoque(produtos);
-console.log(`Valor total do estoque: R$ ${total.toFixed(2)}`);
+console.log("\n=== EXERCÍCIO 4 ===");
+const comDescontos = aplicarDescontos(produtos);
+console.log("Produtos com desconto:");
+comDescontos
+  .filter(p => p.desconto > 0)
+  .forEach(p => {
+    console.log(`${p.nome}: R$ ${p.preco} → R$ ${p.precoFinal.toFixed(2)} (${p.desconto}% off)`);
+  });
 
