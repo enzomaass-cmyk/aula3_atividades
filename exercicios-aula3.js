@@ -1,15 +1,22 @@
-// EXERCÍCIO 4: APLICAR DESCONTO
+// EXERCÍCIO 5: ENCONTRAR PRODUTO MAIS CARO
 
-function aplicarDescontos(lista) {
-  return lista.map(produto => {
-    const precoFinal = produto.preco - (produto.preco * produto.desconto / 100);
-
-    return {
-      ...produto,          // copia todas as propriedades
-      precoFinal: precoFinal // adiciona o preço final
-    };
+const produtoMaisCaro = (arrayProdutos) => {
+  // O método 'reduce' é ideal para transformar um array em um único valor,
+  // neste caso, o objeto do produto mais caro.
+  return arrayProdutos.reduce((produtoAnterior, produtoAtual) => {
+    // Compara o preço do produto atual com o preço do produto armazenado
+    // como 'o mais caro' até agora (produtoAnterior).
+    if (produtoAtual.preco > produtoAnterior.preco) {
+      // Se o produto atual for mais caro, ele se torna o novo 'produtoAnterior'
+      return produtoAtual;
+    } else {
+      // Caso contrário, o 'produtoAnterior' (o mais caro até agora) é mantido.
+      return produtoAnterior;
+    }
   });
-}
+};
+
+// Sua solução aqui:
 
 const produtos = [
   { id: 1, nome: "Notebook Dell", preco: 3500, categoria: "eletrônicos", estoque: 5, desconto: 0 },
@@ -24,13 +31,8 @@ const produtos = [
   { id: 10, nome: "Estante para Livros", preco: 420, categoria: "móveis", estoque: 5, desconto: 10 }
 ];
 
-// Testes:
-console.log("\n=== EXERCÍCIO 4 ===");
-const comDescontos = aplicarDescontos(produtos);
-console.log("Produtos com desconto:");
-comDescontos
-  .filter(p => p.desconto > 0)
-  .forEach(p => {
-    console.log(`${p.nome}: R$ ${p.preco} → R$ ${p.precoFinal.toFixed(2)} (${p.desconto}% off)`);
-  });
 
+// Testes:
+console.log("\n=== EXERCÍCIO 5 ===");
+const maisCaro = produtoMaisCaro(produtos);
+console.log(`Produto mais caro: ${maisCaro.nome} - R$ ${maisCaro.preco}`);
