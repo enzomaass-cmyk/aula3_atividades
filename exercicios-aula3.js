@@ -1,66 +1,16 @@
-// EXERCÍCIO 10: ESTATÍSTICAS DO ESTOQUE (DESAFIO)
+// EXERCÍCIO 11: BUSCAR PRODUTO POR NOME (BÔNUS)
 
-const estatisticasEstoque = (arrayProdutos) => {
-  // 1. Usar 'reduce' para calcular todas as somas e encontrar os extremos
-  const resultadosIniciais = arrayProdutos.reduce((acumulador, produto) => {
-    // a. Contagem de produtos (simplesmente o tamanho do array no final, mas útil para verificar)
-    acumulador.totalProdutos++;
+const buscarProduto = (arrayProdutos, termoBusca) => {
+  // 1. Converter o termo de busca para minúsculas para uma busca não-sensível ao caso (case-insensitive)
+  const termoEmMinusculas = termoBusca.toLowerCase();
 
-    // b. Contagem de produtos em estoque/falta
-    if (produto.estoque > 0) {
-      acumulador.totalEmEstoque++;
-    } else {
-      acumulador.totalEmFalta++;
-    }
+  return arrayProdutos.filter(produto => {
+    // 2. Converter o nome do produto para minúsculas
+    const nomeEmMinusculas = produto.nome.toLowerCase();
 
-    // c. Cálculo do Valor Total do Estoque
-    // O valor a ser somado é o preço total por item (preço * estoque)
-    const precoComEstoque = produto.preco * produto.estoque;
-    acumulador.somaTotalValor += precoComEstoque;
-
-    // d. Acumulador para o Preço Médio (soma de preços de todos os itens)
-    acumulador.somaTotalPrecos += produto.preco;
-    
-    // e. Encontrar o Mais Caro
-    // Inicializa ou atualiza o produto mais caro
-    if (!acumulador.produtoMaisCaro || produto.preco > acumulador.produtoMaisCaro.preco) {
-      acumulador.produtoMaisCaro = produto;
-    }
-
-    // f. Encontrar o Mais Barato
-    // Inicializa ou atualiza o produto mais barato
-    if (!acumulador.produtoMaisBarato || produto.preco < acumulador.produtoMaisBarato.preco) {
-      acumulador.produtoMaisBarato = produto;
-    }
-
-    // g. Coletar categorias únicas
-    acumulador.categorias.add(produto.categoria);
-
-    return acumulador;
-  }, { // Valor inicial do acumulador
-    totalProdutos: 0,
-    totalEmEstoque: 0,
-    totalEmFalta: 0,
-    somaTotalValor: 0, // Soma de (preco * estoque)
-    somaTotalPrecos: 0, // Soma de (preco)
-    produtoMaisCaro: null,
-    produtoMaisBarato: null,
-    categorias: new Set(), // Usamos Set para garantir categorias únicas
+    // 3. Usar o método 'includes' para verificar se o nome do produto contém o termo de busca
+    return nomeEmMinusculas.includes(termoEmMinusculas);
   });
-
-  // 2. Calcular a Média e formatar o objeto final
-  const precoMedio = resultadosIniciais.somaTotalPrecos / resultadosIniciais.totalProdutos;
-  
-  return {
-    totalProdutos: resultadosIniciais.totalProdutos,
-    totalEmEstoque: resultadosIniciais.totalEmEstoque,
-    totalEmFalta: resultadosIniciais.totalEmFalta,
-    valorTotal: resultadosIniciais.somaTotalValor,
-    precoMedio: precoMedio,
-    produtoMaisCaro: resultadosIniciais.produtoMaisCaro,
-    produtoMaisBarato: resultadosIniciais.produtoMaisBarato,
-    categorias: Array.from(resultadosIniciais.categorias), // Converte o Set para Array
-  };
 };
 
 // Sua solução aqui:
@@ -80,14 +30,9 @@ const produtos = [
 
 
 // Testes:
-console.log("\n=== EXERCÍCIO 10 (DESAFIO) ===");
-const stats = estatisticasEstoque(produtos);
-console.log("Estatísticas do Estoque:");
-console.log(`Total de produtos: ${stats.totalProdutos}`);
-console.log(`Produtos em estoque: ${stats.totalEmEstoque}`);
-console.log(`Produtos em falta: ${stats.totalEmFalta}`);
-console.log(`Valor total: R$ ${stats.valorTotal.toFixed(2)}`);
-console.log(`Preço médio: R$ ${stats.precoMedio.toFixed(2)}`);
-console.log(`Mais caro: ${stats.produtoMaisCaro.nome} (R$ ${stats.produtoMaisCaro.preco})`);
-console.log(`Mais barato: ${stats.produtoMaisBarato.nome} (R$ ${stats.produtoMaisBarato.preco})`);
-console.log(`Categorias: ${stats.categorias.join(", ")}`);
+console.log("\n=== EXERCÍCIO 11 (BÔNUS) ===");
+console.log("Buscar 'gamer':");
+console.log(buscarProduto(produtos, "gamer").map(p => p.nome));
+
+console.log("\nBuscar 'monitor':");
+console.log(buscarProduto(produtos, "monitor").map(p => p.nome));
