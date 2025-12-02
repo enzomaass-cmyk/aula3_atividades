@@ -1,7 +1,9 @@
-// EXERCÍCIO 2: PRODUTOS EM ESTOQUE
+// EXERCÍCIO 3: CALCULAR VALOR TOTAL DO ESTOQUE
 
-function produtosDisponiveis(lista) {
-  return lista.filter(produto => produto.estoque > 0);
+function valorTotalEstoque(lista) {
+  return lista.reduce((total, produto) => {
+    return total + (produto.preco * produto.estoque);
+  }, 0);
 }
 
 const produtos = [
@@ -18,12 +20,7 @@ const produtos = [
 ];
 
 // Testes:
-console.log("\n=== EXERCÍCIO 2 ===");
-
-const disponiveis = produtosDisponiveis(produtos);
-console.log(`Produtos disponíveis: ${disponiveis.length}`);
-
-console.log("Produtos em falta:");
-const emFalta = produtos.filter(p => p.estoque === 0);
-console.log(emFalta.map(p => p.nome));
+console.log("\n=== EXERCÍCIO 3 ===");
+const total = valorTotalEstoque(produtos);
+console.log(`Valor total do estoque: R$ ${total.toFixed(2)}`);
 
