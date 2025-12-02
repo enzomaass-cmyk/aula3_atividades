@@ -1,19 +1,9 @@
-// EXERCÍCIO 5: ENCONTRAR PRODUTO MAIS CARO
+// EXERCÍCIO 6: LISTAR NOMES DOS PRODUTOS
 
-const produtoMaisCaro = (arrayProdutos) => {
-  // O método 'reduce' é ideal para transformar um array em um único valor,
-  // neste caso, o objeto do produto mais caro.
-  return arrayProdutos.reduce((produtoAnterior, produtoAtual) => {
-    // Compara o preço do produto atual com o preço do produto armazenado
-    // como 'o mais caro' até agora (produtoAnterior).
-    if (produtoAtual.preco > produtoAnterior.preco) {
-      // Se o produto atual for mais caro, ele se torna o novo 'produtoAnterior'
-      return produtoAtual;
-    } else {
-      // Caso contrário, o 'produtoAnterior' (o mais caro até agora) é mantido.
-      return produtoAnterior;
-    }
-  });
+const listarNomes = (arrayProdutos) => {
+  // O método 'map' percorre cada item do array e retorna um novo array
+  // contendo o valor retornado em cada iteração.
+  return arrayProdutos.map(produto => produto.nome);
 };
 
 // Sua solução aqui:
@@ -31,8 +21,8 @@ const produtos = [
   { id: 10, nome: "Estante para Livros", preco: 420, categoria: "móveis", estoque: 5, desconto: 10 }
 ];
 
-
 // Testes:
-console.log("\n=== EXERCÍCIO 5 ===");
-const maisCaro = produtoMaisCaro(produtos);
-console.log(`Produto mais caro: ${maisCaro.nome} - R$ ${maisCaro.preco}`);
+console.log("\n=== EXERCÍCIO 6 ===");
+const nomes = listarNomes(produtos);
+console.log("Lista de produtos:");
+nomes.forEach((nome, i) => console.log(`${i + 1}. ${nome}`));
