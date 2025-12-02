@@ -1,35 +1,16 @@
-// EXERCÍCIO 8: MÉDIA DE PREÇOS POR CATEGORIA
+// EXERCÍCIO 9: TOP 3 PRODUTOS MAIS CAROS
 
-const mediaPrecoPorCategoria = (arrayProdutos) => {
-  // 1. Agrupar e somar os preços por categoria usando 'reduce'
-  const agrupado = arrayProdutos.reduce((acumulador, produto) => {
-    const categoria = produto.categoria;
+const top3MaisCaros = (arrayProdutos) => {
+  // 1. Criar uma cópia do array para não modificar o array original
+  const produtosCopia = [...arrayProdutos];
 
-    // Inicializa a categoria no acumulador se for a primeira vez
-    if (!acumulador[categoria]) {
-      acumulador[categoria] = {
-        somaPrecos: 0,
-        contagem: 0
-      };
-    }
+  // 2. Ordenar a cópia pelo preço (preco) em ordem decrescente (do maior para o menor)
+  // Se 'a.preco - b.preco' resulta em um número negativo, 'a' vem antes de 'b' (ordem crescente).
+  // Para ordem decrescente, invertemos: 'b.preco - a.preco'.
+  produtosCopia.sort((a, b) => b.preco - a.preco);
 
-    // Adiciona o preço e incrementa a contagem para a categoria
-    acumulador[categoria].somaPrecos += produto.preco;
-    acumulador[categoria].contagem++;
-
-    return acumulador;
-  }, {}); // O acumulador começa como um objeto vazio
-
-  // 2. Calcular a média final para cada categoria
-  const mediasFinais = {};
-
-  for (const categoria in agrupado) {
-    const dados = agrupado[categoria];
-    // A média é a soma dos preços dividida pela contagem de produtos
-    mediasFinais[categoria] = dados.somaPrecos / dados.contagem;
-  }
-
-  return mediasFinais;
+  // 3. Retornar os 3 primeiros elementos do array ordenado
+  return produtosCopia.slice(0, 3);
 };
 
 // Sua solução aqui:
@@ -47,10 +28,10 @@ const produtos = [
   { id: 10, nome: "Estante para Livros", preco: 420, categoria: "móveis", estoque: 5, desconto: 10 }
 ];
 
-
 // Testes:
-console.log("\n=== EXERCÍCIO 8 ===");
-const medias = mediaPrecoPorCategoria(produtos);
-Object.entries(medias).forEach(([categoria, media]) => {
-  console.log(`Preço médio - ${categoria}: R$ ${media.toFixed(2)}`);
+console.log("\n=== EXERCÍCIO 9 ===");
+const top3 = top3MaisCaros(produtos);
+console.log("Top 3 produtos mais caros:");
+top3.forEach((p, i) => {
+  console.log(`${i + 1}º - ${p.nome}: R$ ${p.preco}`);
 });
