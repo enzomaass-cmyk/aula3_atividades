@@ -1,7 +1,7 @@
-// EXERCÍCIO 1: FILTRAR PRODUTOS POR CATEGORIA
+// EXERCÍCIO 2: PRODUTOS EM ESTOQUE
 
-function filtrarPorCategoria(lista, categoria) {
-  return lista.filter(produto => produto.categoria === categoria);
+function produtosDisponiveis(lista) {
+  return lista.filter(produto => produto.estoque > 0);
 }
 
 const produtos = [
@@ -18,8 +18,12 @@ const produtos = [
 ];
 
 // Testes:
-console.log("=== EXERCÍCIO 1 ===");
+console.log("\n=== EXERCÍCIO 2 ===");
 
-const eletronicos = filtrarPorCategoria(produtos, "eletrônicos");
-console.log(`Eletrônicos encontrados: ${eletronicos.length}`);
-console.log(eletronicos.map(p => p.nome));
+const disponiveis = produtosDisponiveis(produtos);
+console.log(`Produtos disponíveis: ${disponiveis.length}`);
+
+console.log("Produtos em falta:");
+const emFalta = produtos.filter(p => p.estoque === 0);
+console.log(emFalta.map(p => p.nome));
+
