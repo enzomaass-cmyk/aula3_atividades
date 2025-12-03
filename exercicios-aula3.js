@@ -100,3 +100,22 @@ const carrinho = {
     console.log("\nO carrinho foi esvaziado.");
   }
 };
+
+// 1. Adicionar alguns produtos:
+carrinho.adicionar(1, 1); // Notebook Dell
+carrinho.adicionar(4, 2); // Cadeira Gamer (2 unidades)
+carrinho.adicionar(8, 1); // Headset Gamer
+carrinho.adicionar(1, 1); // Adiciona mais um Notebook Dell para testar a atualização
+
+// 2. Listar os itens:
+carrinho.listarItens();
+
+// 3. Calcular e exibir o total:
+const totalCompra = carrinho.calcularTotal();
+console.log(`\nVALOR TOTAL DA COMPRA: R$ ${totalCompra.toFixed(2)}`);
+
+// 4. Remover um item:
+carrinho.remover(4); // Remove a Cadeira Gamer
+
+// 5. Listar novamente para ver a remoção:
+carrinho.listarItens();
